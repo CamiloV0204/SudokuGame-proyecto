@@ -49,6 +49,32 @@ public class Sudoku {
     }
 
     /**
+     * Checks if the player's Sudoku solution is correct and complete.
+     *
+     * @param board The player's current Sudoku board.
+     * @return true if the board is complete and correct, false otherwise.
+     */
+    public boolean isSolved(int[][] board) {
+        // Check each row, column, and 2x3 block
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 6; col++) {
+                int number = board[row][col];
+
+                // Ensure the cell is filled
+                if (number < 1 || number > 6) {
+                    return false; // Incomplete or invalid cell
+                }
+
+                // Check if the current number violates Sudoku rules
+                if (!isValidMove(board, row, col, number)) {
+                    return false; // Violates Sudoku rules
+                }
+            }
+        }
+        return true; // If all checks passed, the Sudoku is solved
+    }
+
+    /**
      * Validates whether a move is valid according to Sudoku rules.
      * A valid move does not duplicate a number in the row, column, or 2x3 block.
      *

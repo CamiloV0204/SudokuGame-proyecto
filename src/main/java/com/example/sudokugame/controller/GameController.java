@@ -213,8 +213,22 @@ public class GameController {
      */
     @FXML
     public void onHandleButtonConfirm(ActionEvent event) {
-        new AlertBox().showMessageInformation("Confirmación", "Estado del Juego", "Botón Confirmar presionado.");
+        // Check if the Sudoku board is solved correctly
+        if (sudoku.isSolved(sudokuPlayer)) {
+            // If solved, show a success message and prompt to play again
+            new AlertBox().showMessageInformation("¡Felicidades!", "Juego Completado", "Has completado el Sudoku correctamente.");
+            try {
+                // Restart the game by re-initializing the board
+                initialize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // If not solved, show an error message
+            new AlertBox().showMessage("Error", "Sudoku incompleto", "El Sudoku no está completado correctamente. Sigue intentando.");
+        }
     }
+
 
     /**
      * Returns the player to the welcome screen when the back button is clicked.
